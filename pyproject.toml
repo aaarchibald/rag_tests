@@ -1,0 +1,27 @@
+[project]
+name = "ilume-bot"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "chromadb>=1.1.0",
+    "langgraph>=0.6.8",
+    "litellm>=1.78.0",
+    "llama-index>=0.14.2",
+    "llama-index-core>=0.14.2",
+    "llama-index-embeddings-huggingface>=0.6.1",
+    "llama-index-llms-ollama>=0.7.3",
+    "llama-index-postprocessor-sbert-rerank>=0.4.2",
+    "llama-index-retrievers-bm25>=0.6.5",
+    "llama-index-vector-stores-chroma>=0.5.3",
+    "matplotlib>=3.10.7",
+    "pypdf2>=3.0.1",
+    "requests>=2.32.5",
+    "torch>=2.8.0",
+    "trulens>=2.4.1",
+    "trulens-apps-llamaindex>=2.4.1",
+    "trulens-eval>=2.4.1",
+    "trulens-providers-litellm>=2.4.1",
+    "trulens-providers-openai>=2.4.1",
+]
