@@ -5,6 +5,7 @@ llama-index-llms-ollama
 llama-index-postprocessor-sbert-rerank
 llama-index-retrievers-bm25
 llama-index-vector-stores-chroma
+llama-index-embeddings-litellm
 chromadb
 torch
 trulens

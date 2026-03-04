@@ -16,6 +16,7 @@ from llama_index.core import SimpleDirectoryReader
 from llama_index.core import VectorStoreIndex
 from llama_index.core.postprocessor import MetadataReplacementPostProcessor
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
+from llama_index.embeddings.litellm import LiteLLMEmbedding
 from llama_index.llms.ollama import Ollama
 from llama_index.core.postprocessor import SimilarityPostprocessor, SentenceTransformerRerank, SentenceEmbeddingOptimizer
 from llama_index.core.retrievers import VectorIndexRetriever, QueryFusionRetriever
@@ -23,7 +24,6 @@ from llama_index.retrievers.bm25 import BM25Retriever
 from llama_index.core.ingestion import IngestionPipeline
 import chromadb
 from llama_index.core import PromptTemplate, Settings, SimpleDirectoryReader, StorageContext, VectorStoreIndex
-from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.llms.ollama import Ollama
 from llama_index.vector_stores.chroma import ChromaVectorStore
 from llama_index.core.prompts import PromptTemplate
@@ -68,25 +68,34 @@ from llama_index.core.evaluation import BatchEvalRunner
 EMBED_MODEL = "Qwen/Qwen3-Embedding-0.6B" # BAAI/bge-small-en-v1.5
 OLLAMA_MODEL = "llama3.2"
 COMPANY_NAME = "ilume"
-PDF_DIR = "./pdfs"
+PDF_DIR = "./data"
 CHROMA_PATH = "./chroma_db1"
 COLLECTION_NAME_WINDOW = "faqs_window"
 COLLECTION_NAME_SPLIT = "faqs_split"
 STORAGE_DIR = "./storage"
 RERANK_MODEL = "Qwen/Qwen3-Reranker-0.6B" # "BAAI/bge-reranker-base"
 
-embed_model = HuggingFaceEmbedding(
-    model_name=EMBED_MODEL, 
-    #max_length=1024
+# embed_model = HuggingFaceEmbedding(
+#     model_name=EMBED_MODEL, 
+#     #max_length=1024
+# )
+
+
+
+Settings.embed_model = LiteLLMEmbedding(
+    model_name="embed-default",
+    api_base=os.getenv("LITELLM_BASE", "http://localhost:4000"),
+    api_key=os.getenv("LITELLM_MASTER_KEY"),
+    timeout=60,
 )
-llm = Ollama(model="llama3.2:latest", request_timeout=60.0)
+
+Settings.llm = Ollama(model="llama3.2:latest", request_timeout=60.0)
 #embed_model = "local:BAAI/bge-small-en-v1.5"
 #embed_model = "local:Qwen/Qwen3-Embedding-4B"
 #embed_model = "local:Qwen/Qwen3-Embedding-0.6B"
 #document = Document(text=text)
 
-Settings.llm = llm
-Settings.embed_model = embed_model
+#Settings.llm = llm
 #Settings.text_splitter = text_splitter
 
 
@@ -256,6 +265,7 @@ def build_index(leaf_nodes, storage_context: StorageContext):
     #     storage_context=storage_context, 
     #     embed_model=embed_model,
     # )
+    
 
     return index
 

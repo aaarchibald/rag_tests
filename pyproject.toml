@@ -11,6 +11,7 @@ dependencies = [
     "llama-index>=0.14.2",
     "llama-index-core>=0.14.2",
     "llama-index-embeddings-huggingface>=0.6.1",
+    "llama-index-embeddings-litellm>=0.4.1",
     "llama-index-llms-ollama>=0.7.3",
     "llama-index-postprocessor-sbert-rerank>=0.4.2",
     "llama-index-retrievers-bm25>=0.6.5",
